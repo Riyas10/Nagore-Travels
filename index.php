@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <title>JSN Cars & Travels | Nagore</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="description" content="JSN Cars & Travels Nagore – Local, outstation travel, airport pickup & drop services.">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
@@ -314,7 +312,7 @@ footer a:hover{text-decoration:underline}
 
 <nav>
   <div class="logo-area">
-    <img src="https://i.ibb.co/XZ3Lwzkc/logo.png">
+    <img src="https://i.ibb.co/zT6pFdV3/JSN-LOGO.png">
     <span>JSN Cars & Travels</span>
   </div>
   <div class="menu-btn" id="menuBtn">☰</div>
