@@ -3,283 +3,320 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>JSN Cars & Travels</title>
+<title>JSN Cars & Travels | Nagore</title>
+<meta name="description" content="JSN Cars & Travels offers reliable cab services, airport transfers, outstation travel, and trusted car buying and selling solutions with well-maintained vehicles and professional drivers.">
+<meta name="keywords" content="JSN Cars and Travels, cab services, car buying and selling, taxi service, airport transfer, outstation cabs, local taxi, used car buying, used car selling, travel services">
+<meta name="author" content="JSN Cars & Travels">
+<meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-html{scroll-behavior:smooth;}
-body{background:#f1f5f9;color:#0f172a;overflow-x:hidden;position:relative}
-
-/* ================= LOADER ================= */
-#loader{
-  position:fixed;inset:0;
-  background:linear-gradient(135deg,#020617,#0f172a);
-  display:flex;align-items:center;justify-content:center;
-  z-index:10000;transition:.8s;
+*{margin:0;padding:0;box-sizing:border-box;font-family: Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+html{scroll-behavior:smooth}
+body{
+  background:#f1f5f9;
+  color:#0f172a;
+  overflow-x:hidden;
+  opacity:0;
+  transition:.8s;
 }
-#loader.hide{opacity:0;visibility:hidden;pointer-events:none}
-.loader-box{text-align:center;color:#fff}
-.loader-box p{margin-top:10px;font-size:22px;font-weight:700}
-.car{font-size:64px;animation:drive 1.4s infinite}
-@keyframes drive{
-  0%{transform:translateX(-40px);opacity:0}
-  50%{opacity:1}
-  100%{transform:translateX(40px);opacity:0}
-}
+body.loaded{opacity:1}
 
-/* ================= TOP LOADER BAR ================= */
+/* TOP SCROLL LOADER */
 #topLoader{
-  position:fixed;top:0;left:0;height:4px;background:#25d366;width:0%;z-index:9999;
-  transition:0.25s;
+  position:fixed;
+  top:0;left:0;
+  height:4px;
+  width:0%;
+  background:linear-gradient(90deg,#22c55e,#38bdf8,#facc15);
+  z-index:10001;
 }
 
-/* ================= NAV ================= */
-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:15px 25px;background:#020617;color:#fff;
-  position:sticky;top:0;z-index:1000;transition:0.5s;
+/* PAGE LOADER */
+#loader{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#020617,#0f172a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+  transition:.8s;
 }
-nav.scrolled{background:#0f172a;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+#loader.hide{opacity:0;visibility:hidden}
+.loader-box{text-align:center;color:#fff}
+.car{font-size:48px;animation:bounce .8s infinite alternate}
+@keyframes bounce{to{transform:translateY(-6px)}}
+.road{
+  width:220px;height:6px;
+  background:#334155;
+  margin:12px auto;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative
+}
+.road::after{
+  content:"";
+  position:absolute;
+  width:40px;height:100%;
+  background:#facc15;
+  animation:road 1s linear infinite
+}
+@keyframes road{from{left:-40px}to{left:220px}}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+  background:#020617;
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000
+}
 .logo-area{display:flex;align-items:center;gap:10px;font-weight:700}
 .logo-area img{height:42px}
-.menu-btn{font-size:28px;cursor:pointer;display:none}
+.menu-btn{font-size:26px;cursor:pointer;display:none}
 nav ul{list-style:none;display:flex;gap:18px}
-nav a{color:#fff;text-decoration:none;padding:8px 14px;border-radius:18px;transition:.3s}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:18px
+}
 nav a:hover{background:#1e293b}
 
 @media(max-width:768px){
 .menu-btn{display:block}
 nav ul{
-  position:absolute;top:70px;left:0;width:100%;
-  background:#020617;flex-direction:column;
-  align-items:center;display:none;padding:15px 0
+  position:absolute;
+  top:70px;left:0;
+  width:100%;
+  background:#020617;
+  flex-direction:column;
+  display:none;
+  align-items:center;
+  padding:15px 0
 }
 nav ul.show{display:flex}
 }
 
-/* ================= HERO ================= */
+/* HERO */
 .hero{
   padding:120px 20px;
   background:linear-gradient(135deg,#020617,#0f172a);
-  color:#fff;text-align:center;overflow:hidden
+  color:#fff;
+  text-align:center
 }
-.hero h1{
-  font-size:44px;
-  animation:glow 2.5s infinite alternate
+.hero h1{font-size:44px}
+#typing{
+  margin-top:15px;
+  font-size:22px;
+  color:#38bdf8;
+  min-height:28px;
 }
-@keyframes glow{
-  from{text-shadow:0 0 10px #38bdf8}
-  to{text-shadow:0 0 30px #22c55e}
-}
-#typing{margin-top:14px;font-size:22px}
 
-/* ================= VEHICLE IMAGE SLIDER ================= */
-.slider-wrapper{
-  position:relative;overflow:hidden;border-radius:20px;
-  max-width:1100px;margin:40px auto;box-shadow:0 15px 35px rgba(0,0,0,.2);
-}
-.vehicle-slider{
-  display:flex;transition:transform .5s ease;
-}
-.slide{
-  min-width:100%;position:relative;
-}
-.slide img{
-  width:100%;height:300px;object-fit:cover;
-  transition:transform .5s ease,filter .5s ease;
-  border-radius:20px;
-}
-.slide:hover img{
-  transform:scale(1.08);
-  filter:brightness(0.75);
-}
-.slide span{
-  position:absolute;bottom:15px;left:15px;color:#fff;
-  font-size:20px;font-weight:700;text-shadow:0 0 6px rgba(0,0,0,.7);
-}
-/* Arrows */
-.prev,.next{
-  position:absolute;top:50%;transform:translateY(-50%);
-  background:rgba(0,0,0,.5);color:#fff;
-  font-size:28px;padding:8px 12px;border-radius:50%;
-  cursor:pointer;user-select:none;transition:.3s;
-}
-.prev:hover,.next:hover{background:#25d366;}
-.prev{left:15px;} .next{right:15px;}
-
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 .section{padding:80px 20px}
 .container{
-  max-width:1100px;margin:auto;
-  padding:60px 30px;border-radius:28px;
-  opacity:0;transform:translateY(60px);
+  max-width:1100px;
+  margin:auto;
+  padding:60px 30px;
+  border-radius:28px;
+  background:#fff;
+  opacity:0;
+  transform:translateY(60px);
   transition:.8s;
 }
 .container.show{opacity:1;transform:none}
-h2{text-align:center;font-size:32px;margin-bottom:25px}
 
-.about-bg{background:#e0f2fe}
-.vehicle-bg{background:#ecfeff}
-.price-bg{background:#fef3c7}
-.faq-bg{background:#f0fdf4}
-.contact-bg{background:#dcfce7}
+.about-section{background:#e0f2fe; font-size: 18px;font-weight: 600;color: #000000;text-align: center;margin-bottom: 12px;position: relative;}
+.pricing-section{background:#fef3c7}
+.faq-section{background:#f0fdf4}
+.contact-section{background:#dcfce7}
 
-/* ================= CARDS ================= */
+h2{text-align:center;margin-bottom:25px}
+
+/* SLIDER */
+.slider-wrapper{overflow:hidden;border-radius:22px}
+.vehicle-slider{display:flex;transition:.5s}
+.slide{min-width:100%}
+.slide img{width:100%;height:320px;object-fit:cover}
+
+/* PRICING */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:25px
 }
 .card{
-  padding:35px;border-radius:22px;
-  font-weight:600;text-align:center;color:#fff;
-  transition:.5s;
+  padding:35px;
+  border-radius:24px;
+  color:#fff;
+  font-weight:700;
+  text-align:center;
+  transition:.4s
 }
-.card:hover{transform:translateY(-12px) scale(1.08);box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.v1{background:#38bdf8}
-.v2{background:#4ade80}
-.v3{background:#fb923c}
+.card:hover{transform:translateY(-10px)}
 .p1{background:#818cf8}
 .p2{background:#22c55e}
 .p3{background:#f87171}
 
-/* ================= PRICING BUTTONS ================= */
-.pricing-buttons{
-  margin-top:15px;
+.action-btns{
   display:flex;
-  justify-content:center;
   gap:10px;
-  flex-wrap:wrap;
+  margin-top:15px
 }
-.pricing-buttons button{
+.action-btns a{
   flex:1;
-  padding:10px;
-  border:none;
-  border-radius:12px;
-  font-weight:600;
-  cursor:pointer;
-  color:#fff;
+  padding:12px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:6px;
-  transition:.3s;
+  color:#fff;
+  transition:.3s
 }
-.pricing-buttons button:first-child{background:#25d366;} /* WhatsApp */
-.pricing-buttons button:first-child:hover{background:#20b858;}
-.pricing-buttons button:last-child{background:#38bdf8;} /* Call Now */
-.pricing-buttons button:last-child:hover{background:#0ea5e9;}
+.wa-btn{background:#25d366}
+.call-btn{background:#38bdf8}
+.action-btns a:hover{transform:scale(1.1)}
 
-/* ================= FAQ ================= */
+/* FAQ */
 .faq-item{
-  margin-bottom:18px;border-radius:20px;
-  overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);
-  transition:.4s;
+  background:#fff;
+  margin-bottom:15px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.08)
 }
 .faq-question{
+  padding:18px;
   background:linear-gradient(135deg,#fde047,#facc15);
-  padding:20px;font-weight:700;cursor:pointer;
-  display:flex;justify-content:space-between;
-  transition:.3s;
+  cursor:pointer;
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
+.faq-question i{transition:.4s}
 .faq-answer{
-  background:#dcfce7;max-height:0;
-  overflow:hidden;padding:0 20px;
-  transition:.5s ease;
+  max-height:0;
+  overflow:hidden;
+  padding:0 18px;
+  background:#dcfce7;
+  transition:.5s ease
 }
 .faq-item.active .faq-answer{
-  max-height:300px;padding:18px 20px;
+  max-height:200px;
+  padding:18px
+}
+.faq-item.active .faq-question i{
+  transform:rotate(180deg)
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 .contact-layout{
-  display:grid;grid-template-columns:1fr 1fr;gap:30px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px
 }
-.map{height:320px;border-radius:20px;overflow:hidden}
-form{background:#fff;padding:30px;border-radius:22px;transition:.3s}
+.map{height:320px;border-radius:22px;overflow:hidden}
+form{background:#fff;padding:25px;border-radius:22px}
 input,textarea{
-  width:100%;padding:14px;margin-bottom:15px;
-  border-radius:12px;border:1px solid #ccc
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:1px solid #ccc
 }
-input:focus,textarea:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 8px rgba(56,189,248,.5)}
 button{
-  width:100%;padding:14px;border:none;
-  border-radius:12px;background:#25d366;
-  color:#fff;font-weight:700;cursor:pointer;
-  transition:.3s;
+  width:100%;
+  padding:14px;
+  background:#25d366;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer
 }
-button:hover{background:#20b858}
+button:hover{background:#1ebe5d}
 
 @media(max-width:768px){
 .contact-layout{grid-template-columns:1fr}
 }
 
-/* ================= SOCIAL ICONS ================= */
-.contact-social{
-  margin-top:25px;
+/* FLOATING BUTTONS */
+#whatsappBtn,#scrollTop{
+  position:fixed;
+  right:20px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
   display:flex;
+  align-items:center;
   justify-content:center;
-  gap:20px;
+  font-size:24px;
+  cursor:pointer;
+  z-index:999;
+  box-shadow:0 6px 20px rgba(0,0,0,.3)
 }
-.contact-social a{
-  width:50px;height:50px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:22px;
-  transition:.4s;text-decoration:none;
-}
-.contact-social a.whatsapp{background:#25D366}
-.contact-social a.facebook{background:#1877F2}
-.contact-social a.instagram{background:#E1306C}
-.contact-social a.youtube{background:#FF0000}
-.contact-social a:hover{transform:translateY(-6px) scale(1.15);}
-
-/* ================= FLOATING WHATSAPP BUTTON ================= */
 #whatsappBtn{
-  position:fixed;bottom:20px;right:20px;
-  background:#25d366;color:#fff;
-  width:60px;height:60px;border-radius:50%;
-  display:flex;justify-content:center;align-items:center;
-  font-size:28px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.3);
-  transition:.3s;z-index:9999;
+  bottom:20px;
+  background:#25d366;
+  color:#fff;
+  animation:pulse 2s infinite
 }
-#whatsappBtn:hover{transform:scale(1.2);}
-
-/* ================= SCROLL TOP BUTTON ================= */
-#scrollTopBtn{
-  position:fixed;bottom:100px;right:20px;
-  background:#38bdf8;color:#fff;
-  width:50px;height:50px;border-radius:50%;
-  display:flex;justify-content:center;align-items:center;
-  font-size:22px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.3);
-  display:none;z-index:9998;
+#scrollTop{
+  bottom:90px;
+  background:#38bdf8;
+  color:#fff;
+  display:none
 }
-#scrollTopBtn:hover{transform:scale(1.2);}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 footer{
-  background:#020617;color:#fff;
-  text-align:center;padding:25px
+  background:#020617;
+  color:#fff;
+  text-align:center;
+  padding:22px;
+  font-size:14px
 }
+footer a{
+  color:#38bdf8;
+  text-decoration:none;
+  margin:0 4px
+}
+footer a:hover{text-decoration:underline}
 </style>
 </head>
+
 <body>
 
-<!-- LOADER -->
+<div id="topLoader"></div>
+
 <div id="loader">
   <div class="loader-box">
     <div class="car">🚕</div>
-    <p>JSN Cars & Travels</p>
+    <div class="road"></div>
+    <p>Loading Your Journey...</p>
   </div>
 </div>
 
-<!-- TOP LOADER BAR -->
-<div id="topLoader"></div>
-
-<!-- NAV -->
-<nav id="navbar">
+<nav>
   <div class="logo-area">
-    <img src="https://i.ibb.co/XZ3Lwzkc/logo.png">
+    <img src="https://i.ibb.co/zT6pFdV3/JSN-LOGO.png">
     <span>JSN Cars & Travels</span>
   </div>
   <div class="menu-btn" id="menuBtn">☰</div>
@@ -293,211 +330,221 @@ footer{
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero" id="home">
+    <img src="https://i.ibb.co/zT6pFdV3/JSN-LOGO.png" alt="JSN-LOGO" style="max-width:150px;width:100%;height:auto;">
   <h1>JSN Cars & Travels</h1>
+  <p>Reliable Cab Services & Trusted Car Deals in Nagore</p>
   <div id="typing"></div>
 </div>
-<!-- VEHICLE IMAGE SLIDER -->
-<section class="section vehicle-bg" id="vehicles">
-  <div class="container">
-    <div class="slider-wrapper">
-      <div class="vehicle-slider">
-        <div class="slide"><img src="https://i.ibb.co/Fqx2KZV3/Dzire-desk-Varient-2000x1171.png" alt="Swift Dzire"><span>Swift Dzire</span></div>
-        <div class="slide"><img src="https://i.ibb.co/vNfgy1v/unrivaled-performance-banner1600x1000.jpg" alt="Innova"><span>Innova</span></div>
-        <div class="slide"><img src="https://i.ibb.co/8gVQLs44/Picsart-26-01-03-01-59-53-809.jpg" alt="Tempo Traveller"><span>Tempo Traveller</span></div>
-      </div>
-      <div class="prev">&#10094;</div>
-      <div class="next">&#10095;</div>
+
+<section class="section" id="vehicles">
+  <div class="container slider-wrapper">
+    <div class="vehicle-slider" id="slider">
+      <div class="slide"><img src="https://i.ibb.co/Fqx2KZV3/Dzire-desk-Varient-2000x1171.png"></div>
+      <div class="slide"><img src="https://i.ibb.co/vNfgy1v/unrivaled-performance-banner1600x1000.jpg"></div>
+      <div class="slide"><img src="https://i.ibb.co/8gVQLs44/Picsart-26-01-03-01-59-53-809.jpg"></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="section about-bg" id="about">
+<section class="section about-section" id="about">
   <div class="container">
-    <h2>ℹ️ About Us</h2>
-    <p style="text-align:center">Safe • Reliable • Affordable Taxi Services</p>
+    <h2>About Us</h2>
+    <p style="text-align: left;">
+      JSN Cars & Travels is a reliable and customer-focused travel service provider offering comfortable cab services along with trusted car buying and selling solutions. We are committed to delivering safe, timely, and affordable travel experiences using well-maintained vehicles and professional drivers.
+      Whether you need a local ride, an outstation journey, airport transfer, or assistance in buying or selling a car, we ensure transparent pricing, quality vehicles, and dependable service. <br><br>JSN Cars & Travels, customer satisfaction and trust are at the heart of everything we do.❤️
+    </p>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="section price-bg" id="pricing">
+<section class="section pricing-section" id="pricing">
   <div class="container">
-    <h2>💰 Pricing</h2>
+    <h2>Pricing</h2>
     <div class="grid">
       <div class="card p1">
-        Local – ₹12/km
-        <div class="pricing-buttons">
-          <button onclick="window.open('https://wa.me/919999999999?text=Hello, I want to book Local ride','_blank')">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </button>
-          <button onclick="window.location.href='tel:+919999999999'">
-            <i class="fas fa-phone"></i> Call Now
-          </button>
+        Local – ₹599/Starting
+        <div class="action-btns">
+          <a class="wa-btn" href="https://wa.me/+919944441561">WhatsApp</a>
+          <a class="call-btn" href="tel:++919944441561">Call</a>
         </div>
       </div>
       <div class="card p2">
         Outstation – ₹14/km
-        <div class="pricing-buttons">
-          <button onclick="window.open('https://wa.me/919999999999?text=Hello, I want to book Outstation ride','_blank')">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </button>
-          <button onclick="window.location.href='tel:+919999999999'">
-            <i class="fas fa-phone"></i> Call Now
-          </button>
+        <div class="action-btns">
+          <a class="wa-btn" href="https://wa.me/+919944441561">WhatsApp</a>
+          <a class="call-btn" href="tel:++919944441561">Call</a>
         </div>
       </div>
       <div class="card p3">
-        Airport – ₹16/km
-        <div class="pricing-buttons">
-          <button onclick="window.open('https://wa.me/919999999999?text=Hello, I want to book Airport ride','_blank')">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </button>
-          <button onclick="window.location.href='tel:+919999999999'">
-            <i class="fas fa-phone"></i> Call Now
-          </button>
+        Airport – ₹14/km
+        <div class="action-btns">
+          <a class="wa-btn" href="https://wa.me/+919944441561">WhatsApp</a>
+          <a class="call-btn" href="tel:++919944441561">Call</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section faq-bg" id="faq">
+<section class="section faq-section" id="faq">
   <div class="container">
-    <h2>❓ FAQ</h2>
-    <div class="faq-item">
-      <div class="faq-question">How to book a car?</div>
-      <div class="faq-answer">Book via WhatsApp instantly.</div>
+    <div class="section-title">
+      <h2>FAQ</h2>
     </div>
-    <div class="faq-item">
-      <div class="faq-question">Do you provide airport pickup?</div>
-      <div class="faq-answer">Yes, 24/7 airport pickup & drop.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">Are drivers experienced?</div>
-      <div class="faq-answer">All our drivers are professional and experienced.</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>What travel services does JSN Cars & Travels provide?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          We offer local and outstation cab services, airport pickup & drop, and comfortable travel solutions with well-maintained vehicles.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Can I book a cab for long-distance or outstation travel?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          Yes, we provide one-way and round-trip outstation cab services at transparent and affordable prices.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Do you assist with buying new or used cars?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          Yes, we help customers buy new and used cars with proper inspection, fair pricing, and documentation support.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Can I sell my used car through JSN Cars & Travels?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          Absolutely. We provide hassle-free used car selling with proper valuation and transparent deals.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>Are your cabs safe and well maintained?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          Yes, all our vehicles are clean, regularly serviced, and driven by experienced drivers for safe travel.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>How can I book a cab or enquire about services?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          You can call us directly or book instantly via WhatsApp or our website enquiry form.
+        </p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4>What payment methods are accepted?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <p class="faq-answer">
+          We accept cash, UPI, and online payments for both travel and car buying or selling services.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="section contact-bg" id="contact">
+<section class="section contact-section" id="contact">
   <div class="container">
-    <h2>📲 Contact</h2>
+    <h2>Contact Us</h2>
     <div class="contact-layout">
       <div class="map">
-        <iframe src="https://maps.google.com/maps?q=Nagore&t=&z=14&output=embed"
-        width="100%" height="100%" style="border:0"></iframe>
+        <iframe src="https://maps.google.com/maps?q=Nagore&t=&z=14&output=embed" width="100%" height="100%"></iframe>
       </div>
       <form onsubmit="sendWhatsApp();return false;">
-        <input id="name" placeholder="Name" required>
-        <input id="phone" placeholder="Phone" required>
+        <input id="name" placeholder="Your Name" required>
+        <input id="phone" placeholder="Phone Number" required>
         <textarea id="msg" placeholder="Travel Requirement"></textarea>
-        <button>Send on WhatsApp</button>
+        <button>Send via WhatsApp</button>
       </form>
-    </div>
-    
-    <div class="contact-social">
-      <a href="https://wa.me/919999999999" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-      <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
 </section>
 
-<!-- FLOATING WHATSAPP & SCROLL TOP -->
 <div id="whatsappBtn"><i class="fab fa-whatsapp"></i></div>
-<div id="scrollTopBtn"><i class="fas fa-chevron-up"></i></div>
+<div id="scrollTop"><i class="fas fa-chevron-up"></i></div>
 
-<footer>© 2026 JSN Cars & Travels</footer>
+<footer>
+  © 2026 <b>JSN Cars & Travels</b> |
+  <a href="#home">Home</a> |
+  <a href="#about">About</a> |
+  <a href="#pricing">Pricing</a> |
+  <a href="#faq">FAQ</a> |
+  <a href="#contact">Contact</a>
+</footer>
 
 <script>
-// MENU TOGGLE
-const menu = document.getElementById("menu");
-const menuBtn = document.getElementById("menuBtn");
-menuBtn.onclick = () => menu.classList.toggle("show");
+menuBtn.onclick=()=>menu.classList.toggle("show");
 
-// NAV SCROLL BACKGROUND & TOP LOADER & SCROLL TOP
-window.addEventListener('scroll',()=>{
-  const nav = document.getElementById('navbar');
-  if(window.scrollY>50) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-
-  let winScroll=document.body.scrollTop||document.documentElement.scrollTop;
-  let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-  let scrolled=(winScroll/height)*100;
-  document.getElementById('topLoader').style.width=scrolled+'%';
-
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  if(winScroll>300) scrollBtn.style.display='flex';
-  else scrollBtn.style.display='none';
+/* PAGE LOAD */
+window.addEventListener("load",()=>{
+  document.body.classList.add("loaded");
+  setTimeout(()=>loader.classList.add("hide"),600);
+  startTyping();
 });
-document.getElementById('scrollTopBtn').onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
 
-// FADE-IN ON SCROLL
-const containers = document.querySelectorAll('.container');
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) entry.target.classList.add('show');
-  });
-},{threshold:0.2});
-containers.forEach(c=>observer.observe(c));
-
-// TYPING EFFECT
-const texts=["Local","Outstation","Airport Pickup"];
+/* TYPING EFFECT */
+const typingEl=document.getElementById("typing");
+const texts=["Local Travel","Outstation","Airport Pickup"];
 let t=0,i=0,del=false;
-const el=document.getElementById("typing");
-(function type(){
-  let txt=texts[t];
-  el.innerHTML=txt.substring(0,i)+"<span class='cursor'>|</span>";
+function startTyping(){type();}
+function type(){
+  const txt=texts[t];
+  typingEl.innerHTML=txt.substring(0,i)+"<span>|</span>";
   del?i--:i++;
   if(i===txt.length+1){del=true;setTimeout(type,800);return}
   if(del&&i===0){del=false;t=(t+1)%texts.length}
   setTimeout(type,del?60:120)
-})();
+}
 
-// FAQ ACCORDION
-document.querySelectorAll('.faq-question').forEach(q=>{
-  q.addEventListener('click',()=>{
-    const parent = q.parentElement;
-    document.querySelectorAll('.faq-item').forEach(f=>{if(f!==parent) f.classList.remove('active')});
-    parent.classList.toggle('active');
-  });
+/* TOP LOADER + SCROLL TOP */
+window.addEventListener("scroll",()=>{
+  const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  topLoader.style.width=(document.documentElement.scrollTop/h)*100+"%";
+  scrollTop.style.display=window.scrollY>400?"flex":"none";
+});
+scrollTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+
+/* SECTION REVEAL */
+const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add("show")),{threshold:.2});
+document.querySelectorAll(".container").forEach(c=>obs.observe(c));
+
+/* SLIDER */
+let idx=0;
+setInterval(()=>{idx=(idx+1)%3;slider.style.transform=`translateX(-${idx*100}%)`},4000);
+
+/* FAQ AUTO CLOSE */
+document.querySelectorAll(".faq-question").forEach(q=>{
+  q.onclick=()=>{
+    document.querySelectorAll(".faq-item").forEach(i=>i!==q.parentElement&&i.classList.remove("active"));
+    q.parentElement.classList.toggle("active");
+  }
 });
 
-// WHATSAPP FORM
+/* WHATSAPP */
+whatsappBtn.onclick=()=>window.open("https://wa.me/+919944441561","_blank");
 function sendWhatsApp(){
-  let t=`Name:${name.value}%0APhone:${phone.value}%0AReq:${msg.value}`;
-  window.open(`https://wa.me/919999999999?text=${t}`,'_blank');
+  const text=`Hello JSN Cars & Travels,
+Name: ${name.value}
+Phone: ${phone.value}
+Requirement: ${msg.value}`;
+  window.open("https://wa.me/+919944441561?text="+encodeURIComponent(text),"_blank");
 }
-
-// FLOATING WHATSAPP
-document.getElementById('whatsappBtn').onclick = ()=>{
-  window.open('https://wa.me/919999999999','_blank');
-}
-
-// VEHICLE SLIDER
-let sliderIndex=0;
-const slides=document.querySelectorAll('.slide');
-const totalSlides=slides.length;
-const slider = document.querySelector('.vehicle-slider');
-
-function showSlide(index){
-  if(index>=totalSlides) sliderIndex=0;
-  else if(index<0) sliderIndex=totalSlides-1;
-  else sliderIndex=index;
-  slider.style.transform = `translateX(-${sliderIndex*100}%)`;
-}
-let autoSlide = setInterval(()=>showSlide(sliderIndex+1),4000);
-document.querySelector('.prev').onclick=()=>{showSlide(sliderIndex-1);resetInterval();}
-document.querySelector('.next').onclick=()=>{showSlide(sliderIndex+1);resetInterval();}
-function resetInterval(){clearInterval(autoSlide);autoSlide=setInterval(()=>showSlide(sliderIndex+1),4000);}
-
-// LOADER
-window.addEventListener('load',()=>{document.getElementById('loader').classList.add('hide');});
 </script>
 
 </body>
